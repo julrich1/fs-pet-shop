@@ -13,11 +13,6 @@ function fileErrorHandler(err) {
   throw err;
 }
 
-if (!process.argv[2]) {
-  console.error(`Usage: ${node} ${file} [read | create | update | destroy]`);
-  process.exit(1);
-}
-
 function read() {
   fs.readFile(JSON_FILE, "utf8", function(err, data) {
     if (err) { fileErrorHandler(err); }
@@ -134,6 +129,11 @@ function destroy() {
       process.exit(1);
     }
   });
+}
+
+if (!process.argv[2]) {
+  console.error(`Usage: ${node} ${file} [read | create | update | destroy]`);
+  process.exit(1);
 }
 
 if (command === "read") {
