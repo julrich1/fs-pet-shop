@@ -4,9 +4,13 @@ const path = require("path");
 const petPath = path.join(__dirname, "pets.json");
 
 const express = require("express");
+const bodyParser = require("body-parser");
+
 const app = express();
 
 app.disable("x-powered-by");
+
+app.use(bodyParser.json());
 
 function handleError(err, res) {
   console.log(err);
@@ -19,7 +23,6 @@ app.get("/pets", (req, res) => {
     
     const pets = JSON.parse(data);
     res.send(pets);
-
   });
 });
 
@@ -34,7 +37,28 @@ app.get("/pets/:id", (req, res) => {
       return res.sendStatus(404);
     }
     res.send(pets[id]);
+  });
+});
 
+app.post("/pets", (req, res) => {
+  const name = req.body.name;
+  const age = parseInt(req.body.age);
+  const kind = req.body.kind;
+
+  if (!name || !age || !kind || isNaN(age)) { res.sendStatus(400); }
+
+  fs.readFile(petPath, "utf8", (err, data) => {
+    if (err) { handleError(err, res); return; }
+    
+    const pets = JSON.parse(data);
+    pets.push({name:name, age:age, kind:kind});
+
+    const petsData = JSON.stringify(pets);
+    fs.writeFile(petPath, petsData, (err) => {
+      if (err) { handleError(err, res); }
+
+      res.send({name:name, age:age, kind:kind});
+    });
   });
 });
 
