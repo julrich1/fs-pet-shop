@@ -107,7 +107,7 @@ app.delete("/pets/:id", (req, res) => {
     pets.splice(id, 1);
 
     pets = JSON.stringify(pets);
-    
+
     writeFile(petPath, pets, res.sendStatus, () => {
       res.send(delPet);
     });
@@ -121,3 +121,5 @@ app.use((req, res) => {
 app.listen(8000, () => {
   console.log(`Listening on port 8000`);
 });
+
+module.exports = app;
