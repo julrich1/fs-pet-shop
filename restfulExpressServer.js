@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 let fs = require("fs");
+=======
+const fs = require("fs");
+>>>>>>> db42385305bfe929a675dfe9935dbc94a6496115
 const path = require("path");
 
 const petPath = path.join(__dirname, "pets.json");
