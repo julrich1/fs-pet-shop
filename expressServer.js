@@ -1,4 +1,4 @@
-const fs = require("fs");
+let fs = require("fs");
 const path = require("path");
 
 const petPath = path.join(__dirname, "pets.json");

@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("fs");
+let fs = require("fs");
 const http = require("http");
 
 const petsPath = path.join(__dirname, "pets.json");
